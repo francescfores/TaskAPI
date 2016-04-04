@@ -45,3 +45,7 @@ Route::get('tag/{id}','TagController@show');
 Route::post('tag','TagController@store');
 Route::put('tag/{id}','TagController@update');
 Route::delete('tag/{id}','TagController@destroy');
+
+Route::get('auth/login', function () {
+    echo "Acces denied";
+});

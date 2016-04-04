@@ -6,6 +6,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class TastkTest extends TestCase
 {
+
+    use WithoutMiddleware;
+
     /**
      * A basic test example.
      *
@@ -108,5 +111,12 @@ class TastkTest extends TestCase
 //        $data = [ 'name' => $task->name, 'done' => $task->done , 'priority' => $task->priority];
 //        $this->delete('/task/' . $task->id)->notSeeInDatabase('tasks',$data);
 //        $this->get('/task')->dontSeeJson($data)->seeStatusCode(200);
+    }
+
+    /*
+     * @group failing
+     */
+    public function testAuthApi(){
+        $this->visit('/task')->assertRedirectedTo('auth/login')->see("Acces denied");
     }
 }
