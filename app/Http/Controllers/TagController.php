@@ -21,6 +21,7 @@ class TagController extends Controller
     public function __construct(TagTransformer $tagTransformer)
     {
         $this->TagTransformer = $tagTransformer;
+        $this->middleware('auth:api');
     }
 
     /**
