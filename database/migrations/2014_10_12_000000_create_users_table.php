@@ -19,9 +19,10 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('api_token', 128)->unique();
+
         });
     }
-
     /**
      * Reverse the migrations.
      *
