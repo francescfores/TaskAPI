@@ -34,7 +34,6 @@ class TastkTest extends TestCase
         $user = factory(App\User::class)->create();
 
         $this->actingAs($user)->get('/task')
-
             ->seeJsonStructure([
                 '*' => [
                     'name', 'done','priority'
