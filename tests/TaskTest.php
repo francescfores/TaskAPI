@@ -49,7 +49,8 @@ class TastkTest extends TestCase
     public function testTaskInDatabaseAreShownByAPI()
     {
         $task = $this->createFakeTask();
-        $this->get('/task/' . $task->id)
+        $user = factory(App\User::class)->create();
+        $this->actingAs($user)->get('/task/' . $task->id)
             ->seeJsonContains(['name' => $task->name, 'done' => $task->done, 'priority' => $task->priority ])
             ->seeStatusCode(200);
 
