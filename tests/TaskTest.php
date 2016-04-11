@@ -31,7 +31,10 @@ class TastkTest extends TestCase
     public function testTasksInDatabaseAreListedByAPI()
     {
         $this->createFakeTasks();
-        $this->get('/task')
+        $user = factory(App\User::class)->create();
+
+        $this->actingAs($user)->get('/task')
+
             ->seeJsonStructure([
                 '*' => [
                     'name', 'done','priority'
@@ -118,5 +121,21 @@ class TastkTest extends TestCase
      */
     public function testAuthApi(){
         $this->visit('/task')->assertRedirectedTo('auth/login')->see("Acces denied");
+    }
+
+    /*
+    * @group failing
+    */
+    public function testTasksInDatabaseAreListedByAPI2()
+    {
+        $this->createFakeTasks();
+        $user = factory(App\User::class)->create();
+
+        $this->get('/task?api_token='. $user->api_token)->dump()
+            ->seeJsonStructure([
+                '*' => [
+                    'name', 'done','priority'
+                ]
+            ])->seeStatusCode(200);
     }
 }
