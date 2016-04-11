@@ -31,6 +31,7 @@ class TastkTest extends TestCase
     public function testTasksInDatabaseAreListedByAPI()
     {
         $this->createFakeTasks();
+
         $user = factory(App\User::class)->create();
 
         $this->actingAs($user)->get('/task')
@@ -131,7 +132,7 @@ class TastkTest extends TestCase
         $this->createFakeTasks();
         $user = factory(App\User::class)->create();
 
-        $this->get('/task?api_token='. $user->api_token)->dump()
+        $this->get('/task?api_token='. $user->api_token)
             ->seeJsonStructure([
                 '*' => [
                     'name', 'done','priority'
